@@ -7,32 +7,25 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Animated background gradient */
+    :root {
+      --ink-charcoal: #4A4A4A;
+      --ink-gray:     #CBCBCB;
+      --ink-ivory:    #FFFFE3;
+      --ink-slate:    #6D8196;
+    }
+
+    /* Clean ink-wash background */
     body {
-      background: radial-gradient(circle at top, #1f2933 0, #020617 55%);
+      background: radial-gradient(circle at top, var(--ink-slate) 0, var(--ink-charcoal) 55%);
       color: #f9fafb;
       overflow-x: hidden;
     }
 
+    /* Soft blobs, no rainbow-wheel spin */
     .gradient-orbit {
-      background: conic-gradient(
-        from 180deg,
-        #f97316,
-        #ec4899,
-        #a855f7,
-        #22c55e,
-        #0ea5e9,
-        #f97316
-      );
-      filter: blur(60px);
-      opacity: 0.18;
-      animation: spin 26s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      background: radial-gradient(circle, var(--ink-slate) 0, var(--ink-charcoal) 60%, transparent 100%);
+      filter: blur(80px);
+      opacity: 0.35;
     }
 
     /* Simple fade-in on scroll */
@@ -46,20 +39,51 @@
       transform: translateY(0);
     }
 
-    /* Card glow */
+    /* Card glow tuned to ink palette */
     .glow-card {
       box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.15),
-        0 18px 40px rgba(15, 23, 42, 0.9);
+        0 0 0 1px rgba(203, 203, 203, 0.15),
+        0 18px 40px rgba(0, 0, 0, 0.9);
+      border-radius: 1rem;
     }
     .glow-card:hover {
       box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.6),
-        0 22px 60px rgba(24, 24, 27, 1);
+        0 0 0 1px rgba(255, 255, 227, 0.6),
+        0 22px 60px rgba(0, 0, 0, 1);
     }
 
+    /* Buttons: ivory → slate */
     .pill {
-      background: linear-gradient(90deg, #f97316, #ec4899, #a855f7);
+      background: linear-gradient(135deg, var(--ink-ivory), var(--ink-slate));
+      color: #111827;
+    }
+
+    /* Hero line using Ink Wash gradient */
+    .hero-gradient {
+      background: linear-gradient(120deg, var(--ink-ivory), var(--ink-gray), var(--ink-slate));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Gallery-style ivory underline for section headings */
+    .section-title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 2px;
+      background-color: var(--ink-ivory);
+      opacity: 0.9;
+      border-radius: 1px;
     }
 
     html {
@@ -69,7 +93,7 @@
 </head>
 <body class="font-sans" id="top">
 
-  <!-- Floating gradient blob in background -->
+  <!-- Floating gradient blobs in background -->
   <div class="fixed inset-0 -z-10 overflow-hidden">
     <div class="gradient-orbit w-[60rem] h-[60rem] rounded-full absolute -top-40 -right-40"></div>
     <div class="gradient-orbit w-[40rem] h-[40rem] rounded-full absolute bottom-[-10rem] left-[-10rem] opacity-60"></div>
@@ -80,20 +104,20 @@
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
       <a href="#top" class="font-semibold tracking-tight text-lg flex items-center gap-2">
         <span class="inline-flex h-7 w-7 items-center justify-center rounded-full pill text-xs text-white">O</span>
-        <span>Ose<span class="text-amber-400"> A-Shadrach</span></span>
+        <span>Ose<span class="text-[var(--ink-ivory)]"> A-Shadrach</span></span>
       </a>
 
       <nav class="hidden md:flex gap-6 text-sm text-gray-200">
-        <a href="#about" class="hover:text-amber-300 transition">About</a>
-        <a href="#roles" class="hover:text-amber-300 transition">Roles</a>
-        <a href="#projects" class="hover:text-amber-300 transition">Case Studies</a>
-        <a href="#reels" class="hover:text-amber-300 transition">Video Reels</a>
-        <a href="#contact" class="hover:text-amber-300 transition">Contact</a>
+        <a href="#about" class="hover:text-[var(--ink-ivory)] transition">About</a>
+        <a href="#roles" class="hover:text-[var(--ink-ivory)] transition">Roles</a>
+        <a href="#projects" class="hover:text-[var(--ink-ivory)] transition">Case Studies</a>
+        <a href="#reels" class="hover:text-[var(--ink-ivory)] transition">Video Reels</a>
+        <a href="#contact" class="hover:text-[var(--ink-ivory)] transition">Contact</a>
       </nav>
 
       <a
         href="https://docs.google.com/document/d/1SiqDAvB-5smVrg8PYhKhx-sxiN1hpYkqfMSlNrYHKM8/export?format=pdf"
-        class="hidden md:inline-block pill text-black px-4 py-2 rounded-full text-xs font-semibold shadow-md hover:brightness-110 transition"
+        class="hidden md:inline-block pill px-4 py-2 rounded-full text-xs font-semibold shadow-md hover:brightness-110 transition"
       >
         Download Résumé
       </a>
@@ -106,58 +130,64 @@
     <section class="min-h-[80vh] flex items-center px-4 sm:px-6">
       <div class="max-w-6xl mx-auto grid md:grid-cols-[1.3fr,1fr] gap-10 items-center fade-section">
         <div>
-          <p class="uppercase tracking-[0.24em] text-xs text-amber-300/80 mb-4">
+          <p class="uppercase tracking-[0.24em] text-xs text-[var(--ink-ivory)]/80 mb-4">
             Marketing & Communication Videographer · ASA Creative Director · Gospel Choir Social Media Manager
           </p>
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4">
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
             Hi, I’m Ose <span class="inline-block animate-bounce">👋</span><br />
-            <span class="bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+            <span class="hero-gradient">
               I shoot videos, tell stories, and gently bully the algorithm into noticing them.
             </span>
-    
+          </h1>
+
+          <p class="text-base sm:text-lg text-gray-200 max-w-xl mb-6">
+            I help universities, student orgs, and choirs look impossible to scroll past—
+            with story-driven video, bold visuals, and social media that actually gets saved and shared.
+          </p>
 
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <a
               href="#reels"
-              class="pill text-black px-6 py-3 rounded-full font-semibold shadow-lg hover:brightness-110 transition text-center text-sm sm:text-base"
+              class="pill px-6 py-3 rounded-full font-semibold shadow-lg hover:brightness-110 transition text-center text-sm sm:text-base"
             >
               ▶ Watch My Reels
             </a>
             <a
               href="#projects"
-              class="px-6 py-3 rounded-full font-semibold border border-amber-300/60 text-amber-200 bg-black/40 hover:bg-amber-500/10 transition text-center text-sm sm:text-base"
+              class="px-6 py-3 rounded-full font-semibold border border-[var(--ink-ivory)]/60 text-[var(--ink-ivory)] bg-black/40 hover:bg-white/5 transition text-center text-sm sm:text-base"
             >
               View Case Studies
             </a>
           </div>
 
-          <p class="mt-5 text-xs sm:text-sm text-gray-400">
+          <p class="mt-5 text-xs sm:text-sm text-gray-300">
             Marketing & Communication Videographer · ASA Creative Director · Gospel Choir Social Media Manager
           </p>
         </div>
 
         <!-- Fun stat / highlight card -->
-        <div class="glow-card bg-black/60 border border-zinc-800 rounded-2xl p-6 md:p-7 flex flex-col gap-4">
+        <div class="glow-card bg-black/70 border border-zinc-800 rounded-2xl p-6 md:p-7 flex flex-col gap-4">
           <h2 class="text-lg font-semibold mb-1">At a Glance</h2>
           <div class="grid grid-cols-2 gap-4 text-sm">
             <div>
               <p class="text-xs uppercase tracking-wide text-gray-400">Videos</p>
-              <p class="text-2xl font-bold text-amber-300">100+</p>
+              <p class="text-2xl font-bold text-[var(--ink-ivory)]">100+</p>
               <p class="text-xs text-gray-400">Shot, edited & delivered for events and campaigns.</p>
             </div>
             <div>
               <p class="text-xs uppercase tracking-wide text-gray-400">Organizations</p>
-              <p class="text-2xl font-bold text-pink-400">3</p>
+              <p class="text-2xl font-bold text-[var(--ink-gray)]">3</p>
               <p class="text-xs text-gray-400">Calvin Marketing, ASA, & Gospel Choir.</p>
             </div>
             <div>
               <p class="text-xs uppercase tracking-wide text-gray-400">Strength</p>
-              <p class="text-xl font-semibold text-sky-300">Story-first</p>
+              <p class="text-xl font-semibold text-[var(--ink-slate)]">Story-first</p>
               <p class="text-xs text-gray-400">Every post, reel, and poster has purpose.</p>
             </div>
             <div>
               <p class="text-xs uppercase tracking-wide text-gray-400">Vibe</p>
-              <p class="text-xl font-semibold text-purple-300">Fun + strategic</p>
+              <p class="text-xl font-semibold text-[var(--ink-ivory)]">Fun + strategic</p>
               <p class="text-xs text-gray-400">Energy with a clear marketing goal.</p>
             </div>
           </div>
@@ -167,16 +197,13 @@
 
     <!-- ROLES -->
     <section id="roles" class="py-20 px-4 sm:px-6 fade-section">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-3 text-center">My Core Roles</h2>
-        <p class="text-sm text-gray-300 text-center max-w-2xl mx-auto mb-10">
-          Three hats, one through-line: turning ideas into visuals and content that move people.
-        </p>
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-8 section-title">The Big 3</h2>
 
-        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8 mt-4 text-left">
           <!-- Role 1 -->
-          <div class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-6 hover:-translate-y-1 transition-transform">
-            <p class="text-xs font-semibold text-amber-300 tracking-wide mb-1">01</p>
+          <div class="glow-card bg-[rgba(0,0,0,0.7)] border border-zinc-800 p-6 hover:-translate-y-1 transition-transform">
+            <p class="text-xs font-semibold text-[var(--ink-ivory)] tracking-wide mb-1">01</p>
             <h3 class="text-xl font-semibold mb-2">
               Marketing & Communication Student Videographer
             </h3>
@@ -190,8 +217,8 @@
           </div>
 
           <!-- Role 2 -->
-          <div class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-6 hover:-translate-y-1 transition-transform">
-            <p class="text-xs font-semibold text-pink-300 tracking-wide mb-1">02</p>
+          <div class="glow-card bg-[rgba(0,0,0,0.7)] border border-zinc-800 p-6 hover:-translate-y-1 transition-transform">
+            <p class="text-xs font-semibold text-[var(--ink-gray)] tracking-wide mb-1">02</p>
             <h3 class="text-xl font-semibold mb-2">
               Creative Director · African Students Association
             </h3>
@@ -205,8 +232,8 @@
           </div>
 
           <!-- Role 3 -->
-          <div class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-6 hover:-translate-y-1 transition-transform">
-            <p class="text-xs font-semibold text-sky-300 tracking-wide mb-1">03</p>
+          <div class="glow-card bg-[rgba(0,0,0,0.7)] border border-zinc-800 p-6 hover:-translate-y-1 transition-transform">
+            <p class="text-xs font-semibold text-[var(--ink-slate)] tracking-wide mb-1">03</p>
             <h3 class="text-xl font-semibold mb-2">
               Social Media Manager · Gospel Choir
             </h3>
@@ -226,7 +253,7 @@
     <section id="about" class="py-20 px-4 sm:px-6 fade-section">
       <div class="max-w-6xl mx-auto grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
         <div>
-          <h2 class="text-3xl sm:text-4xl font-bold mb-4">The Story Behind the Camera</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-6 section-title">The Story Behind the Camera</h2>
           <p class="text-gray-100 leading-relaxed mb-3 text-sm sm:text-base">
             I’m a marketing-minded creative who loves turning “regular campus stuff” into content that feels cinematic,
             personal, and deeply shareable.
@@ -237,10 +264,10 @@
           </p>
           <p class="text-gray-300 text-sm leading-relaxed">
             Whether it’s a 15-second reel or a full event campaign, my goal is simple:
-            make your audience feel something <span class="text-amber-300 font-medium">and</span> do something—click, share, show up, or sing along.
+            make your audience feel something <span class="text-[var(--ink-ivory)] font-medium">and</span> do something—click, share, show up, or sing along.
           </p>
         </div>
-        <div class="glow-card bg-black/60 border border-zinc-800 rounded-2xl p-6 text-sm text-gray-200">
+        <div class="glow-card bg-[rgba(0,0,0,0.75)] border border-zinc-800 rounded-2xl p-6 text-sm text-gray-200">
           <h3 class="font-semibold mb-3 text-lg">What I Bring</h3>
           <ul class="space-y-2 list-disc list-inside">
             <li>Shot & edited 100+ videos for events, promos, and social.</li>
@@ -254,17 +281,17 @@
 
     <!-- CASE STUDIES -->
     <section id="projects" class="py-20 px-4 sm:px-6 fade-section">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-3 text-center">Selected Case Studies</h2>
-        <p class="text-sm text-gray-300 text-center max-w-2xl mx-auto mb-10">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-3 section-title">Selected Case Studies</h2>
+        <p class="text-sm text-gray-300 max-w-2xl mx-auto mb-10">
           A snapshot of how I think about campaigns—from problem → idea → execution → impact.
         </p>
 
-        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8 text-left">
           <!-- Case 1 -->
-          <article class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between">
+          <article class="glow-card bg-[rgba(0,0,0,0.75)] border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between">
             <div>
-              <h3 class="text-xl font-semibold mb-2 text-amber-300">
+              <h3 class="text-xl font-semibold mb-2 text-[var(--ink-ivory)]">
                 Calvin Admissions Video Series
               </h3>
               <p class="text-gray-400 text-xs mb-3">
@@ -281,9 +308,9 @@
           </article>
 
           <!-- Case 2 -->
-          <article class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between">
+          <article class="glow-card bg-[rgba(0,0,0,0.75)] border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between">
             <div>
-              <h3 class="text-xl font-semibold mb-2 text-pink-300">
+              <h3 class="text-xl font-semibold mb-2 text-[var(--ink-gray)]">
                 ASA “Mr & Miss ASA” Campaign
               </h3>
               <p class="text-gray-400 text-xs mb-3">
@@ -300,9 +327,9 @@
           </article>
 
           <!-- Case 3 -->
-          <article class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between">
+          <article class="glow-card bg-[rgba(0,0,0,0.75)] border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between">
             <div>
-              <h3 class="text-xl font-semibold mb-2 text-sky-300">
+              <h3 class="text-xl font-semibold mb-2 text-[var(--ink-slate)]">
                 Gospel Choir Social Refresh
               </h3>
               <p class="text-gray-400 text-xs mb-3">
@@ -323,15 +350,15 @@
 
     <!-- VIDEO REELS -->
     <section id="reels" class="py-20 px-4 sm:px-6 fade-section">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-3 text-center">Video Reels</h2>
-        <p class="text-sm text-gray-300 text-center max-w-2xl mx-auto mb-10">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-3 section-title">Video Reels</h2>
+        <p class="text-sm text-gray-300 max-w-2xl mx-auto mb-10">
           Click through to see how I handle pacing, sound, and storytelling across different types of projects.
         </p>
 
-        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8 text-left">
           <!-- Reel 1 -->
-          <div class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-4 flex flex-col gap-3">
+          <div class="glow-card bg-[rgba(0,0,0,0.75)] border border-zinc-800 rounded-2xl p-4 flex flex-col gap-3">
             <a
               href="https://www.instagram.com/reel/DOwWK6mFRjC/"
               target="_blank"
@@ -343,17 +370,17 @@
                 class="aspect-video w-full object-cover rounded-xl"
               />
               <div class="absolute inset-0 rounded-xl bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                <span class="pill text-xs font-semibold text-white px-4 py-2 rounded-full">
+                <span class="pill text-xs font-semibold px-4 py-2 rounded-full">
                   ▶ Play reel
                 </span>
               </div>
             </a>
             <div>
-              <h3 class="font-semibold text-sm mb-1">Calvin Hype / Campus Life Reel</h3>
+              <h3 class="font-semibold text-sm mb-1 text-[var(--ink-ivory)]">Calvin Hype / Campus Life Reel</h3>
               <a
                 href="https://www.instagram.com/reel/DOwWK6mFRjC/"
                 target="_blank"
-                class="text-amber-300 text-xs hover:underline"
+                class="text-[var(--ink-ivory)] text-xs hover:underline"
               >
                 Watch reel →
               </a>
@@ -361,7 +388,7 @@
           </div>
 
           <!-- Reel 2 -->
-          <div class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-4 flex flex-col gap-3">
+          <div class="glow-card bg-[rgba(0,0,0,0.75)] border border-zinc-800 rounded-2xl p-4 flex flex-col gap-3">
             <a
               href="https://www.instagram.com/p/DRGZi_FjK4E/"
               target="_blank"
@@ -373,17 +400,17 @@
                 class="aspect-video w-full object-cover rounded-xl"
               />
               <div class="absolute inset-0 rounded-xl bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                <span class="pill text-xs font-semibold text-white px-4 py-2 rounded-full">
+                <span class="pill text-xs font-semibold px-4 py-2 rounded-full">
                   ▶ Play reel
                 </span>
               </div>
             </a>
             <div>
-              <h3 class="font-semibold text-sm mb-1">ASA Event / Mr & Miss ASA</h3>
+              <h3 class="font-semibold text-sm mb-1 text-[var(--ink-gray)]">ASA Event / Mr & Miss ASA</h3>
               <a
                 href="https://www.instagram.com/p/DRGZi_FjK4E/"
                 target="_blank"
-                class="text-pink-300 text-xs hover:underline"
+                class="text-[var(--ink-gray)] text-xs hover:underline"
               >
                 Watch reel →
               </a>
@@ -391,7 +418,7 @@
           </div>
 
           <!-- Reel 3 -->
-          <div class="glow-card bg-black/65 border border-zinc-800 rounded-2xl p-4 flex flex-col gap-3">
+          <div class="glow-card bg-[rgba(0,0,0,0.75)] border border-zinc-800 rounded-2xl p-4 flex flex-col gap-3">
             <a
               href="https://www.instagram.com/p/DQ0cjkADW7k/"
               target="_blank"
@@ -403,17 +430,17 @@
                 class="aspect-video w-full object-cover rounded-xl"
               />
               <div class="absolute inset-0 rounded-xl bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                <span class="pill text-xs font-semibold text-white px-4 py-2 rounded-full">
+                <span class="pill text-xs font-semibold px-4 py-2 rounded-full">
                   ▶ Play reel
                 </span>
               </div>
             </a>
             <div>
-              <h3 class="font-semibold text-sm mb-1">Gospel Choir Performance Snippets</h3>
+              <h3 class="font-semibold text-sm mb-1 text-[var(--ink-slate)]">Gospel Choir Performance Snippets</h3>
               <a
                 href="https://www.instagram.com/p/DQ0cjkADW7k/"
                 target="_blank"
-                class="text-sky-300 text-xs hover:underline"
+                class="text-[var(--ink-slate)] text-xs hover:underline"
               >
                 Watch reel →
               </a>
@@ -426,7 +453,7 @@
     <!-- CONTACT -->
     <section id="contact" class="py-20 px-4 sm:px-6 fade-section">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Let’s Build Something</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4 section-title">Let’s Build Something</h2>
         <p class="text-sm sm:text-base text-gray-200 max-w-2xl mx-auto mb-8">
           Need a campaign, content for an event, or someone to make your organization feel alive online?
           I’m open to collaborations, freelance projects, and future roles in marketing and creative production.
@@ -434,14 +461,14 @@
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
           <a
             href="mailto:osemudia97@gmail.com"
-            class="pill text-black px-6 py-3 rounded-full font-semibold shadow-lg hover:brightness-110 transition w-full sm:w-auto text-sm sm:text-base"
+            class="pill px-6 py-3 rounded-full font-semibold shadow-lg hover:brightness-110 transition w-full sm:w-auto text-sm sm:text-base"
           >
             Email Me
           </a>
           <a
             href="https://www.linkedin.com/in/ose-a-shadrach/"
             target="_blank"
-            class="px-6 py-3 rounded-full font-semibold border border-zinc-300/60 text-gray-100 bg-black/40 hover:bg-white/5 transition w-full sm:w-auto text-sm sm:text-base"
+            class="px-6 py-3 rounded-full font-semibold border border-[var(--ink-ivory)]/60 text-[var(--ink-ivory)] bg-black/40 hover:bg-white/5 transition w-full sm:w-auto text-sm sm:text-base"
           >
             Connect on LinkedIn
           </a>
